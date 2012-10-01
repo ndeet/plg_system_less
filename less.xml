@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="plugin" group="system" method="upgrade">
+	<name>plg_system_less</name>
+	<author>Andreas Tasch</author>
+	<creationDate>Sept 2012</creationDate>
+	<copyright>(C) 2012 Andreas Tasch</copyright>
+	<license>GNU General Public License v3; see	LICENSE.txt</license>
+	<authorEmail>info@attec.at</authorEmail>
+	<authorUrl>www.attec.at</authorUrl>
+	<version>0.1 Alpha</version>
+	<description>PLG_SYSTEM_LESS_XML_DESC</description>
+	<scriptfile>script.php</scriptfile>
+	<files>
+		<file plugin="less">less.php</file>
+		<filename>lessc.php</filename>
+    	<filename>index.html</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">language/en-GB/en-GB.plg_system_less.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.plg_system_less.sys.ini</language>
+	</languages>
+</extension>
