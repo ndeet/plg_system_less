@@ -1,16 +1,14 @@
 <?php
 /**
  * @package System Plugin - automatic Less compiler - for Joomla 2.5 and 3.0
- * @version 0.1 Alpha
+ * @version 0.2 Beta
  * @author Andreas Tasch 
  * @copyright (C) 2012 - Andreas Tasch
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  **/
 
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
-
-jimport( 'joomla.plugin.plugin' );
+defined( '_JEXEC' ) or die();
 
 require_once('lessc.php');
 
@@ -21,60 +19,39 @@ require_once('lessc.php');
 class plgSystemLess extends JPlugin
 {
 	/**
-	 * Constructor.
-	 *
-	 * @access protected
-	 * @param object $subject The object to observe
-	 * @param array   $config  An array that holds the plugin configuration
-	 * @since 1.0
-	 */
-	public function __construct( &$subject, $config )
-	{
-		parent::__construct( $subject, $config );
-	
-		//TODO check config params 
-	}
-
-	/**
-	 * Do something onAfterDispatch
-	 */
-	function onAfterDispatch()
-	{
-	}
-
-	/**
-	 * Check if 
+	 * Compile .less files on change
 	 */
 	function onBeforeRender()
 	{
-		//check if less folder exists
 		$app = JFactory::getApplication();
 		$templateURI = JURI::base() . 'templates/' . $app->getTemplate();
 		
 		$templatePath = JPATH_BASE . DIRECTORY_SEPARATOR . 'templates/' . $app->getTemplate() . DIRECTORY_SEPARATOR;
 		
-		//TODO: make this configurable; default is template.less
-		$lessFile = $templatePath . "less/template.less";
-		//force recompilation regardless of change 
-		//TODO: get from config
-		$force = false;
+		//entrypoint for main .less file, default is less/template.less
+		$lessFile = $templatePath . $this->params->get('lessfile','less/template.less');
 		
-		//TODO: only if plugin check option is set to yes (config param)
-		if(JFile::exists($lessFile))
+		//destination .css file, default css/template.css
+		$cssFile = $templatePath . $this->params->get('cssfile','css/template.css');
+		
+		//force recompilation regardless of change 
+		$force = (boolean) $this->params->get('less_force', 0);
+		
+		//check if .less file exists and is readable
+		if(is_readable($lessFile))
 		{
-			// css output file
-			$cssFile = $templatePath . "css/template.css";
-			
 			//initialse less compiler
 			try {
-				
 				$this->autoCompileLess($lessFile, $cssFile, $force);
 			} 
 			catch(Exception $e) 
 			{
 				echo "lessphp error: " . $e->getMessage();
 			}
-		
+		} 
+		else 
+		{
+			echo "Could not read .less file";
 		}
 		return false;
 	}
