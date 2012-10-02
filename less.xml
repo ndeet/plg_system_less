@@ -7,9 +7,8 @@
 	<license>GNU General Public License v3; see	LICENSE.txt</license>
 	<authorEmail>info@attec.at</authorEmail>
 	<authorUrl>www.attec.at</authorUrl>
-	<version>0.1 Alpha</version>
+	<version>0.2 Beta</version>
 	<description>PLG_SYSTEM_LESS_XML_DESC</description>
-	<scriptfile>script.php</scriptfile>
 	<files>
 		<file plugin="less">less.php</file>
 		<filename>lessc.php</filename>
@@ -19,4 +18,30 @@
 		<language tag="en-GB">language/en-GB/en-GB.plg_system_less.ini</language>
 		<language tag="en-GB">language/en-GB/en-GB.plg_system_less.sys.ini</language>
 	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="less_force" type="radio"
+					description="PLG_SYSTEM_LESS_FIELD_FORCE_DESC"
+					label="PLG_SYSTEM_LESS_FIELD_FORCE_LABEL"
+					default="0"
+				>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="lessfile" type="text"
+					description="PLG_SYSTEM_LESS_FIELD_LESSFILE_DESC"
+					label="PLG_SYSTEM_LESS_FIELD_LESSFILE_LABEL"
+					default="less/template.less"
+					size="37"
+				/>
+				<field name="cssfile" type="text"
+					description="PLG_SYSTEM_LESS_FIELD_CSSFILE_DESC"
+					label="PLG_SYSTEM_LESS_FIELD_CSSFILE_LABEL"
+					default="css/template.css"
+					size="37"
+				/>
+			</fieldset>
+		</fields>
+	</config>
 </extension>
