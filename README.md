@@ -7,8 +7,9 @@ A Joomla! System Plugin, compiles templates .less files on page load only if the
 ## Compatibility
 Joomla! 2.5 + 3.0
 
-## Version 0.1 Alpha
-+ compiles template.less only on change
+## Version 0.2 Alpha
++ compiles template.less file and all imported files to template.css
 + uses caching to track changes and better performance
-+ should work with J! 2.5 + 3.0
-- currently no configurable options (will follow asap)
++ option to force compilation on each reload
++ less and css path configurable
++ compatible with J! 2.5 + 3.0
