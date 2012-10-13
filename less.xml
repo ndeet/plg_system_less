@@ -7,7 +7,7 @@
 	<license>GNU General Public License v3; see	LICENSE.txt</license>
 	<authorEmail>info@attec.at</authorEmail>
 	<authorUrl>www.attec.at</authorUrl>
-	<version>0.2 Beta</version>
+	<version>0.3 Beta</version>
 	<description>PLG_SYSTEM_LESS_XML_DESC</description>
 	<files>
 		<file plugin="less">less.php</file>
@@ -17,10 +17,21 @@
 	<languages>
 		<language tag="en-GB">language/en-GB/en-GB.plg_system_less.ini</language>
 		<language tag="en-GB">language/en-GB/en-GB.plg_system_less.sys.ini</language>
+		<language tag="fr-FR">language/fr-FR/fr-FR.plg_system_less.ini</language>
+		<language tag="fr-FR">language/fr-FR/fr-FR.plg_system_less.sys.ini</language>
 	</languages>
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
+				<field name="mode" type="list"
+					description="PLG_SYSTEM_LESS_FIELD_MODE_DESC"
+					label="PLG_SYSTEM_LESS_FIELD_MODE_LABEL"
+					default="0"
+				>
+					<option value="0">PLG_SYSTEM_LESS_FIELD_MODE_FRONTEND</option>
+					<option value="1">PLG_SYSTEM_LESS_FIELD_MODE_ADMIN</option>
+					<option value="2">PLG_SYSTEM_LESS_FIELD_MODE_BOTH</option>
+				</field>
 				<field name="less_force" type="radio"
 					description="PLG_SYSTEM_LESS_FIELD_FORCE_DESC"
 					label="PLG_SYSTEM_LESS_FIELD_FORCE_LABEL"
@@ -29,6 +40,9 @@
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
+				<field type="spacer" name="sitespacer" class="text"
+					label="PLG_SYSTEM_LESS_SITESPACER"
+				/>
 				<field name="lessfile" type="text"
 					description="PLG_SYSTEM_LESS_FIELD_LESSFILE_DESC"
 					label="PLG_SYSTEM_LESS_FIELD_LESSFILE_LABEL"
@@ -38,6 +52,21 @@
 				<field name="cssfile" type="text"
 					description="PLG_SYSTEM_LESS_FIELD_CSSFILE_DESC"
 					label="PLG_SYSTEM_LESS_FIELD_CSSFILE_LABEL"
+					default="css/template.css"
+					size="37"
+				/>
+				<field type="spacer" name="adminspacer" class="text"
+					label="PLG_SYSTEM_LESS_ADMINSPACER"
+				/>
+				<field name="admin_lessfile" type="text"
+					description="PLG_SYSTEM_LESS_FIELD_ADMINLESSFILE_DESC"
+					label="PLG_SYSTEM_LESS_FIELD_ADMINLESSFILE_LABEL"
+					default="less/template.less"
+					size="37"
+				/>
+				<field name="admin_cssfile" type="text"
+					description="PLG_SYSTEM_LESS_FIELD_ADMINCSSFILE_DESC"
+					label="PLG_SYSTEM_LESS_FIELD_ADMINCSSFILE_LABEL"
 					default="css/template.css"
 					size="37"
 				/>

@@ -24,18 +24,44 @@ class plgSystemLess extends JPlugin
 	function onBeforeRender()
 	{
 		$app = JFactory::getApplication();
-		$templateURI = JURI::base() . 'templates/' . $app->getTemplate();
 		
-		$templatePath = JPATH_BASE . DIRECTORY_SEPARATOR . 'templates/' . $app->getTemplate() . DIRECTORY_SEPARATOR;
+		//path to less file
+		$lessFile = '';
 		
-		//entrypoint for main .less file, default is less/template.less
-		$lessFile = $templatePath . $this->params->get('lessfile','less/template.less');
+		// 0 = frontend only
+		// 1 = backend only
+		// 2 = front + backend
+		$mode = $this->params->get('mode', 0);
 		
-		//destination .css file, default css/template.css
-		$cssFile = $templatePath . $this->params->get('cssfile','css/template.css');
+		//only execute frontend
+		if($app->isSite() && ($mode == 0 || $mode == 2))
+		{	
+			$templatePath = JPATH_BASE . DIRECTORY_SEPARATOR . 'templates/' . $app->getTemplate() . DIRECTORY_SEPARATOR;
+			
+			//entrypoint for main .less file, default is less/template.less
+			$lessFile = $templatePath . $this->params->get('lessfile','less/template.less');
+			
+			//destination .css file, default css/template.css
+			$cssFile = $templatePath . $this->params->get('cssfile','css/template.css');
+			
+			//force recompilation regardless of change 
+			$force = (boolean) $this->params->get('less_force', 0);
+		}
 		
-		//force recompilation regardless of change 
-		$force = (boolean) $this->params->get('less_force', 0);
+		//execute backend
+		if($app->isAdmin() && ($mode == 1 || $mode == 2)) 
+		{
+			$templatePath = JPATH_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'templates/' . $app->getTemplate() . DIRECTORY_SEPARATOR;
+			
+			//entrypoint for main .less file, default is less/template.less
+			$lessFile = $templatePath . $this->params->get('admin_lessfile','less/template.less');
+			
+			//destination .css file, default css/template.css
+			$cssFile = $templatePath . $this->params->get('admin_cssfile','css/template.css');
+			
+			//force recompilation regardless of change 
+			$force = (boolean) $this->params->get('less_force', 0);
+		}
 		
 		//check if .less file exists and is readable
 		if(is_readable($lessFile))
@@ -49,13 +75,10 @@ class plgSystemLess extends JPlugin
 				echo "lessphp error: " . $e->getMessage();
 			}
 		} 
-		else 
-		{
-			echo "Could not read .less file";
-		}
-		return false;
-	}
-	
+		
+		return false;	
+	}	
+		
 	/**
 	 * Checks if .less file has been updated and stores it in cache for quick comparison. 
 	 * 
