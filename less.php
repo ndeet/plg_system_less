@@ -44,8 +44,6 @@ class plgSystemLess extends JPlugin
 			//destination .css file, default css/template.css
 			$cssFile = $templatePath . $this->params->get('cssfile','css/template.css');
 			
-			//force recompilation regardless of change 
-			$force = (boolean) $this->params->get('less_force', 0);
 		}
 		
 		//execute backend
@@ -58,9 +56,7 @@ class plgSystemLess extends JPlugin
 			
 			//destination .css file, default css/template.css
 			$cssFile = $templatePath . $this->params->get('admin_cssfile','css/template.css');
-			
-			//force recompilation regardless of change 
-			$force = (boolean) $this->params->get('less_force', 0);
+		
 		}
 		
 		//check if .less file exists and is readable
@@ -68,7 +64,7 @@ class plgSystemLess extends JPlugin
 		{
 			//initialse less compiler
 			try {
-				$this->autoCompileLess($lessFile, $cssFile, $force);
+				$this->autoCompileLess($lessFile, $cssFile);
 			} 
 			catch(Exception $e) 
 			{
@@ -86,12 +82,11 @@ class plgSystemLess extends JPlugin
 	 * 
 	 * This function is taken and modified from documentation of lessphp
 	 * 
-	 * 
 	 * @param String $inputFile
 	 * @param String $outputFile
 	 * @param boolean $force
 	 */
-	function autoCompileLess($inputFile, $outputFile, $force) {
+	function autoCompileLess($inputFile, $outputFile) {
 		// load config file
 		$configFile = JPATH_BASE . DIRECTORY_SEPARATOR . 'configuration.php';
 		$config = JFactory::getConfig($configFile);
@@ -107,6 +102,30 @@ class plgSystemLess extends JPlugin
 		}
 	
 		$less = new lessc;
+		//set less options
+		
+		//force recompilation regardless of change 
+		$force = (boolean) $this->params->get('less_force', 0);
+		
+		//preserve comments
+		if($this->params->get('less_comments', 0))
+		{
+			$less->setPreserveComments(true);
+		}
+		
+		//compression 
+		if($this->params->get('less_compress', 0))
+		{
+			$less->setFormatter("compressed");
+		} else {
+			$formatter = new lessc_formatter_classic;
+			$formatter->disableSingle = true;
+			$formatter->breakSelectors = true;
+			$formatter->assignSeparator = ": ";
+			$formatter->selectorSeparator = ",";
+			$formatter->indentChar = "\t";
+		}
+		
 		$newCache = $less->cachedCompile($cache, $force);
 	
 		if (!is_array($cache) || $newCache["updated"] > $cache["updated"]) {
