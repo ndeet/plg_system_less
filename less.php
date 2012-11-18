@@ -90,10 +90,13 @@ class plgSystemLess extends JPlugin
 		// load config file
 		$configFile = JPATH_BASE . DIRECTORY_SEPARATOR . 'configuration.php';
 		$config = JFactory::getConfig($configFile);
+		//path to temp folder
 		$tmpPath = $config->get('tmp_path');
+		//get Application
+		$app = JFactory::getApplication();
 		
 		//load chached file
-		$cacheFile = $tmpPath . DIRECTORY_SEPARATOR . basename($inputFile) . ".cache";
+		$cacheFile = $tmpPath . DIRECTORY_SEPARATOR . $app->getTemplate() . "_" . basename($inputFile) . ".cache";
 	
 		if (file_exists($cacheFile)) {
 			$cache = unserialize(file_get_contents($cacheFile));
