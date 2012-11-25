@@ -7,9 +7,9 @@ A Joomla! System Plugin, compiles templates .less files on page load only if the
 ## Compatibility
 Joomla! 2.5.x + 3.0.x
 
-## Version 0.5 Beta
-fixes issue #3 : cache file had no template-unique name and was loaded after template change
-(thanks to illovo)
+## Version 0.6 Beta
++ adding German translation
+# update French translation, thanks lomart.fr
 
 ## Features Overview
 + compiles template.less file and all imported files to template.css
