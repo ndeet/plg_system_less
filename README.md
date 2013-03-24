@@ -8,8 +8,8 @@ A Joomla! System Plugin, compiles templates .less files on page load only if the
 Joomla! 2.5.x + 3.0.x
 
 ## Version 0.7.0 Beta
-# update lessphp to version 0.3.9, thanks to Klipper
-# changed versioning to work with joomla update functions
++ update lessphp to version 0.3.9, thanks to Klipper
++ changed versioning to work with joomla update functions
 + added russian translation, thanks to Pazys
 + added update server for one-click updates from joomla backend
 
