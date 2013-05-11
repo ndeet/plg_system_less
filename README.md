@@ -5,13 +5,10 @@ A Joomla! System Plugin, compiles templates .less files on page load only if the
 [lessphp]: https://github.com/leafo/lessphp
 
 ## Compatibility
-Joomla! 2.5.x + 3.0.x
+Joomla! 2.5.x + 3.0.x + 3.1.x
 
-## Version 0.7.0 Beta
-+ update lessphp to version 0.3.9, thanks to Klipper
-+ changed versioning to work with joomla update functions
-+ added russian translation, thanks to Pazys
-+ added update server for one-click updates from joomla backend
+### Changelog
+See CHANGELOG.md
 
 ## Features Overview
 + compiles template.less file and all imported files to template.css
@@ -30,7 +27,7 @@ Joomla! 2.5.x + 3.0.x
 a) Download latest zipball and install via Joomla! Extension Manager
 https://github.com/ndeet/plg_system_less/zipball/master
 
-b) Download latest package from Downloads
+b) Download latest package from Tags
 https://github.com/ndeet/plg_system_less/tags
 
 ## Feedback and Issues
@@ -40,4 +37,3 @@ https://github.com/ndeet/plg_system_less/issues
 a) Either by pull requests
 b) for small fixes/translations you can use github's built in-editor
 http://docs.joomla.org/Github_using_the_web
-
