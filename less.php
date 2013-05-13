@@ -80,18 +80,14 @@ class plgSystemLess extends JPlugin
 	/**
 	 * Checks if .less file has been updated and stores it in cache for quick comparison.
 	 *
-	 * Use $force=true to force compiling regardless of cache.
-	 *
 	 * This function is taken and modified from documentation of lessphp
 	 *
 	 * @param String $inputFile
 	 * @param String $outputFile
-	 * @param boolean $force
 	 */
 	function autoCompileLess($inputFile, $outputFile) {
 		// load config file
-		$configFile = JPATH_BASE . DIRECTORY_SEPARATOR . 'configuration.php';
-		$config = JFactory::getConfig($configFile);
+		$config = JFactory::getConfig();
 		//path to temp folder
 		$tmpPath = $config->get('tmp_path');
 		//get Application
@@ -105,20 +101,21 @@ class plgSystemLess extends JPlugin
 		} else {
 			$cache = $inputFile;
 		}
-
+		
+		//instantiate less compiler
 		$less = new lessc;
+		
 		//set less options
-
-		//force recompilation regardless of change
+		//option: force recompilation regardless of change
 		$force = (boolean) $this->params->get('less_force', 0);
 
-		//preserve comments
+		//option: preserve comments
 		if($this->params->get('less_comments', 0))
 		{
 			$less->setPreserveComments(true);
 		}
 
-		//compression
+		//option: compression
 		if($this->params->get('less_compress', 0))
 		{
 			$less->setFormatter("compressed");
