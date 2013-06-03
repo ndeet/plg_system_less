@@ -1,7 +1,7 @@
 <?php
 /**
  * @package System Plugin - automatic Less compiler - for Joomla 2.5 and 3.x
- * @version 0.7.1 Beta
+ * @version 0.7.2 Beta
  * @author Andreas Tasch
  * @copyright (C) 2012-2013 - Andreas Tasch
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,7 +10,7 @@
 // no direct access
 defined( '_JEXEC' ) or die();
 
-if(!class_exists(lessc)) {
+if(!class_exists('lessc')) {
 	require_once('lessc.php');
 }
 
@@ -36,7 +36,7 @@ class plgSystemLess extends JPlugin
 		$mode = $this->params->get('mode', 0);
 
 		//only execute frontend
-		if($app->isSite() && ($mode == 0 || $mode == 2))
+		if ($app->isSite() && ($mode == 0 || $mode == 2))
 		{
 			$templatePath = JPATH_BASE . DIRECTORY_SEPARATOR . 'templates/' . $app->getTemplate() . DIRECTORY_SEPARATOR;
 
@@ -49,7 +49,7 @@ class plgSystemLess extends JPlugin
 		}
 
 		//execute backend
-		if($app->isAdmin() && ($mode == 1 || $mode == 2))
+		if ($app->isAdmin() && ($mode == 1 || $mode == 2))
 		{
 			$templatePath = JPATH_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'templates/' . $app->getTemplate() . DIRECTORY_SEPARATOR;
 
@@ -62,10 +62,11 @@ class plgSystemLess extends JPlugin
 		}
 
 		//check if .less file exists and is readable
-		if(is_readable($lessFile))
+		if (is_readable($lessFile))
 		{
 			//initialse less compiler
-			try {
+			try
+            {
 				$this->autoCompileLess($lessFile, $cssFile);
 			}
 			catch(Exception $e)
@@ -96,9 +97,21 @@ class plgSystemLess extends JPlugin
 		//load chached file
 		$cacheFile = $tmpPath . DIRECTORY_SEPARATOR . $app->getTemplate() . "_" . basename($inputFile) . ".cache";
 
-		if (file_exists($cacheFile)) {
-			$cache = unserialize(file_get_contents($cacheFile));
-		} else {
+		if (file_exists($cacheFile))
+        {
+			$tmpCache = unserialize(file_get_contents($cacheFile));
+            if ($tmpCache['root'] === $cacheFile)
+            {
+                $cache = $tmpCache;
+            }
+            else
+            {
+                $cache = $inputFile;
+                unlink($cacheFile);
+            }
+		}
+        else
+        {
 			$cache = $inputFile;
 		}
 		
@@ -110,16 +123,18 @@ class plgSystemLess extends JPlugin
 		$force = (boolean) $this->params->get('less_force', 0);
 
 		//option: preserve comments
-		if($this->params->get('less_comments', 0))
+		if ($this->params->get('less_comments', 0))
 		{
 			$less->setPreserveComments(true);
 		}
 
 		//option: compression
-		if($this->params->get('less_compress', 0))
+		if ($this->params->get('less_compress', 0))
 		{
 			$less->setFormatter("compressed");
-		} else {
+		}
+        else
+        {
 			$formatter = new lessc_formatter_classic;
 			$formatter->disableSingle = true;
 			$formatter->breakSelectors = true;
@@ -128,9 +143,11 @@ class plgSystemLess extends JPlugin
 			$formatter->indentChar = "\t";
 		}
 
+        //compile cache file
 		$newCache = $less->cachedCompile($cache, $force);
 
-		if (!is_array($cache) || $newCache["updated"] > $cache["updated"]) {
+		if (!is_array($cache) || $newCache["updated"] > $cache["updated"])
+        {
 			file_put_contents($cacheFile, serialize($newCache));
 			file_put_contents($outputFile, $newCache['compiled']);
 		}
