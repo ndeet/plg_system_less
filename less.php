@@ -1,16 +1,17 @@
 <?php
 /**
- * @package System Plugin - automatic Less compiler - for Joomla 2.5 and 3.x
- * @version 0.7.2 Beta
- * @author Andreas Tasch
+ * @package   System Plugin - automatic Less compiler - for Joomla 2.5 and 3.x
+ * @version   0.7.2 Beta
+ * @author    Andreas Tasch
  * @copyright (C) 2012-2013 - Andreas Tasch
- * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ * @license   GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  **/
 
 // no direct access
-defined( '_JEXEC' ) or die();
+defined('_JEXEC') or die();
 
-if(!class_exists('lessc')) {
+if (!class_exists('lessc'))
+{
 	require_once('lessc.php');
 }
 
@@ -41,10 +42,10 @@ class plgSystemLess extends JPlugin
 			$templatePath = JPATH_BASE . DIRECTORY_SEPARATOR . 'templates/' . $app->getTemplate() . DIRECTORY_SEPARATOR;
 
 			//entrypoint for main .less file, default is less/template.less
-			$lessFile = $templatePath . $this->params->get('lessfile','less/template.less');
+			$lessFile = $templatePath . $this->params->get('lessfile', 'less/template.less');
 
 			//destination .css file, default css/template.css
-			$cssFile = $templatePath . $this->params->get('cssfile','css/template.css');
+			$cssFile = $templatePath . $this->params->get('cssfile', 'css/template.css');
 
 		}
 
@@ -54,10 +55,10 @@ class plgSystemLess extends JPlugin
 			$templatePath = JPATH_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'templates/' . $app->getTemplate() . DIRECTORY_SEPARATOR;
 
 			//entrypoint for main .less file, default is less/template.less
-			$lessFile = $templatePath . $this->params->get('admin_lessfile','less/template.less');
+			$lessFile = $templatePath . $this->params->get('admin_lessfile', 'less/template.less');
 
 			//destination .css file, default css/template.css
-			$cssFile = $templatePath . $this->params->get('admin_cssfile','css/template.css');
+			$cssFile = $templatePath . $this->params->get('admin_cssfile', 'css/template.css');
 
 		}
 
@@ -66,10 +67,10 @@ class plgSystemLess extends JPlugin
 		{
 			//initialse less compiler
 			try
-            {
+			{
 				$this->autoCompileLess($lessFile, $cssFile);
 			}
-			catch(Exception $e)
+			catch (Exception $e)
 			{
 				echo "lessphp error: " . $e->getMessage();
 			}
@@ -86,7 +87,8 @@ class plgSystemLess extends JPlugin
 	 * @param String $inputFile
 	 * @param String $outputFile
 	 */
-	function autoCompileLess($inputFile, $outputFile) {
+	function autoCompileLess($inputFile, $outputFile)
+	{
 		// load config file
 		$config = JFactory::getConfig();
 		//path to temp folder
@@ -98,26 +100,26 @@ class plgSystemLess extends JPlugin
 		$cacheFile = $tmpPath . DIRECTORY_SEPARATOR . $app->getTemplate() . "_" . basename($inputFile) . ".cache";
 
 		if (file_exists($cacheFile))
-        {
+		{
 			$tmpCache = unserialize(file_get_contents($cacheFile));
-            if ($tmpCache['root'] === $cacheFile)
-            {
-                $cache = $tmpCache;
-            }
-            else
-            {
-                $cache = $inputFile;
-                unlink($cacheFile);
-            }
+			if ($tmpCache['root'] === $cacheFile)
+			{
+				$cache = $tmpCache;
+			}
+			else
+			{
+				$cache = $inputFile;
+				unlink($cacheFile);
+			}
 		}
-        else
-        {
+		else
+		{
 			$cache = $inputFile;
 		}
-		
+
 		//instantiate less compiler
 		$less = new lessc;
-		
+
 		//set less options
 		//option: force recompilation regardless of change
 		$force = (boolean) $this->params->get('less_force', 0);
@@ -133,8 +135,8 @@ class plgSystemLess extends JPlugin
 		{
 			$less->setFormatter("compressed");
 		}
-        else
-        {
+		else
+		{
 			$formatter = new lessc_formatter_classic;
 			$formatter->disableSingle = true;
 			$formatter->breakSelectors = true;
@@ -143,11 +145,11 @@ class plgSystemLess extends JPlugin
 			$formatter->indentChar = "\t";
 		}
 
-        //compile cache file
+		//compile cache file
 		$newCache = $less->cachedCompile($cache, $force);
 
 		if (!is_array($cache) || $newCache["updated"] > $cache["updated"])
-        {
+		{
 			file_put_contents($cacheFile, serialize($newCache));
 			file_put_contents($outputFile, $newCache['compiled']);
 		}
