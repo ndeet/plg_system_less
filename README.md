@@ -17,6 +17,7 @@ See CHANGELOG.md
 + option to compress .css output
 + option to preserve comments
 + less and css path configurable
++ client-side compiler for easier .less debugging, thanks to @piotr-cz
 + compatible with J! 2.5 + 3.x
 + Option to parse only frontent, backend or both
 + Paths for frontend and backend template configurable
