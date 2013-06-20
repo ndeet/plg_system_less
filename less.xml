@@ -1,112 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension
-        version="2.5"
-        type="plugin"
-        group="system"
-        method="upgrade">
-    <name>plg_system_less</name>
-    <author>Andreas Tasch</author>
-    <creationDate>June 2013</creationDate>
-    <copyright>(C) 2012-2013 Andreas Tasch</copyright>
-    <license>GNU General Public License v3; see LICENSE.txt</license>
-    <authorEmail>info@attec.at</authorEmail>
-    <authorUrl>www.attec.at</authorUrl>
-    <version>0.7.1</version>
-    <description>PLG_SYSTEM_LESS_XML_DESC</description>
-    <files>
-        <file plugin="less">less.php</file>
-        <filename>lessc.php</filename>
-        <filename>index.html</filename>
-    </files>
-    <languages>
-        <language tag="en-GB">language/en-GB/en-GB.plg_system_less.ini</language>
-        <language tag="en-GB">language/en-GB/en-GB.plg_system_less.sys.ini</language>
-        <language tag="fr-FR">language/fr-FR/fr-FR.plg_system_less.ini</language>
-        <language tag="fr-FR">language/fr-FR/fr-FR.plg_system_less.sys.ini</language>
-        <language tag="de-DE">language/de-DE/de-DE.plg_system_less.ini</language>
-        <language tag="de-DE">language/de-DE/de-DE.plg_system_less.sys.ini</language>
-        <language tag="ru-RU">language/ru-RU/ru-RU.plg_system_less.ini</language>
-        <language tag="ru-RU">language/ru-RU/ru-RU.plg_system_less.sys.ini</language>
-    </languages>
-    <config>
-        <fields name="params">
-            <fieldset name="basic">
-                <field name="mode" type="list"
-                       description="PLG_SYSTEM_LESS_FIELD_MODE_DESC"
-                       label="PLG_SYSTEM_LESS_FIELD_MODE_LABEL"
-                       default="0"
-                        >
-                    <option value="0">PLG_SYSTEM_LESS_FIELD_MODE_FRONTEND</option>
-                    <option value="1">PLG_SYSTEM_LESS_FIELD_MODE_ADMIN</option>
-                    <option value="2">PLG_SYSTEM_LESS_FIELD_MODE_BOTH</option>
-                </field>
+	version="2.5"
+	type="plugin"
+	group="system"
+	method="upgrade">
+	<name>plg_system_less</name>
+	<author>Andreas Tasch</author>
+	<creationDate>May 2013</creationDate>
+	<copyright>(C) 2012-2013 Andreas Tasch</copyright>
+	<license>GNU General Public License v3; see	LICENSE.txt</license>
+	<authorEmail>info@attec.at</authorEmail>
+	<authorUrl>www.attec.at</authorUrl>
+	<version>0.7.1</version>
+	<description>PLG_SYSTEM_LESS_XML_DESC</description>
+	<files>
+		<file plugin="less">less.php</file>
+		<filename>lessc.php</filename>
+    	<filename>index.html</filename>
+	</files>
+<!-- Added >>> -->
+	<media destination="plg_less" folder="media">
+		<folder>js</folder>
+		<filename>index.html</filename>
+	</media>
+<!-- <<< Added -->
+	<languages>
+		<language tag="en-GB">language/en-GB/en-GB.plg_system_less.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.plg_system_less.sys.ini</language>
+		<language tag="fr-FR">language/fr-FR/fr-FR.plg_system_less.ini</language>
+		<language tag="fr-FR">language/fr-FR/fr-FR.plg_system_less.sys.ini</language>
+		<language tag="de-DE">language/de-DE/de-DE.plg_system_less.ini</language>
+		<language tag="de-DE">language/de-DE/de-DE.plg_system_less.sys.ini</language>
+		<language tag="ru-RU">language/ru-RU/ru-RU.plg_system_less.ini</language>
+		<language tag="ru-RU">language/ru-RU/ru-RU.plg_system_less.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="mode" type="list"
+					description="PLG_SYSTEM_LESS_FIELD_MODE_DESC"
+					label="PLG_SYSTEM_LESS_FIELD_MODE_LABEL"
+					default="0"
+				>
+					<option value="0">PLG_SYSTEM_LESS_FIELD_MODE_FRONTEND</option>
+					<option value="1">PLG_SYSTEM_LESS_FIELD_MODE_ADMIN</option>
+					<option value="2">PLG_SYSTEM_LESS_FIELD_MODE_BOTH</option>
+				</field>
 
-                <field name="sitespacer" type="spacer" class="text"
-                       label="PLG_SYSTEM_LESS_SITESPACER"
-                        />
-                <field name="lessfile" type="text"
-                       description="PLG_SYSTEM_LESS_FIELD_LESSFILE_DESC"
-                       label="PLG_SYSTEM_LESS_FIELD_LESSFILE_LABEL"
-                       default="less/template.less"
-                       size="37"
-                        />
-                <field name="cssfile" type="text"
-                       description="PLG_SYSTEM_LESS_FIELD_CSSFILE_DESC"
-                       label="PLG_SYSTEM_LESS_FIELD_CSSFILE_LABEL"
-                       default="css/template.css"
-                       size="37"
-                        />
-                <field type="spacer" name="adminspacer" class="text"
-                       label="PLG_SYSTEM_LESS_ADMINSPACER"
-                        />
-                <field name="admin_lessfile" type="text"
-                       description="PLG_SYSTEM_LESS_FIELD_ADMINLESSFILE_DESC"
-                       label="PLG_SYSTEM_LESS_FIELD_ADMINLESSFILE_LABEL"
-                       default="less/template.less"
-                       size="37"
-                        />
-                <field name="admin_cssfile" type="text"
-                       description="PLG_SYSTEM_LESS_FIELD_ADMINCSSFILE_DESC"
-                       label="PLG_SYSTEM_LESS_FIELD_ADMINCSSFILE_LABEL"
-                       default="css/template.css"
-                       size="37"
-                        />
+				<field name="sitespacer" type="spacer" class="text"
+					label="PLG_SYSTEM_LESS_SITESPACER"
+				/>
+				<field name="lessfile" type="text"
+					description="PLG_SYSTEM_LESS_FIELD_LESSFILE_DESC"
+					label="PLG_SYSTEM_LESS_FIELD_LESSFILE_LABEL"
+					default="less/template.less"
+					size="37"
+				/>
+				<field name="cssfile" type="text"
+					description="PLG_SYSTEM_LESS_FIELD_CSSFILE_DESC"
+					label="PLG_SYSTEM_LESS_FIELD_CSSFILE_LABEL"
+					default="css/template.css"
+					size="37"
+				/>
+				<field type="spacer" name="adminspacer" class="text"
+					label="PLG_SYSTEM_LESS_ADMINSPACER"
+				/>
+				<field name="admin_lessfile" type="text"
+					description="PLG_SYSTEM_LESS_FIELD_ADMINLESSFILE_DESC"
+					label="PLG_SYSTEM_LESS_FIELD_ADMINLESSFILE_LABEL"
+					default="less/template.less"
+					size="37"
+				/>
+				<field name="admin_cssfile" type="text"
+					description="PLG_SYSTEM_LESS_FIELD_ADMINCSSFILE_DESC"
+					label="PLG_SYSTEM_LESS_FIELD_ADMINCSSFILE_LABEL"
+					default="css/template.css"
+					size="37"
+				/>
 
-                <field type="spacer" name="lessspacer" class="text"
-                       label="PLG_SYSTEM_LESS_LESSSPACER"
-                        />
-                <field name="less_force" type="radio"
-                       description="PLG_SYSTEM_LESS_FIELD_FORCE_DESC"
-                       label="PLG_SYSTEM_LESS_FIELD_FORCE_LABEL"
-                       default="0"
-                        >
-                    <option value="0">JNO</option>
-                    <option value="1">JYES</option>
-                </field>
-                <field name="less_comments" type="radio"
-                       description="PLG_SYSTEM_LESS_FIELD_COMMENTS_DESC"
-                       label="PLG_SYSTEM_LESS_FIELD_COMMENTS_LABEL"
-                       default="0"
-                        >
-                    <option value="0">JNO</option>
-                    <option value="1">JYES</option>
-                </field>
-                <field name="less_compress" type="radio"
-                       description="PLG_SYSTEM_LESS_FIELD_COMPRESSION_DESC"
-                       label="PLG_SYSTEM_LESS_FIELD_COMPRESSION_LABEL"
-                       default="0"
-                        >
-                    <option value="0">JNO</option>
-                    <option value="1">JYES</option>
-                </field>
-            </fieldset>
-        </fields>
-    </config>
-    <updateservers>
-        <server
-                type="extension"
-                priority="1"
-                name="at[tec] Update Server">http://www.attec.at/joomla-updates/plg_system_less_update.xml
-        </server>
-    </updateservers>
+				<field type="spacer" name="lessspacer" class="text"
+					label="PLG_SYSTEM_LESS_LESSSPACER"
+				/>
+				<field name="less_force" type="radio"
+					description="PLG_SYSTEM_LESS_FIELD_FORCE_DESC"
+					label="PLG_SYSTEM_LESS_FIELD_FORCE_LABEL"
+					default="0"
+				>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="less_comments" type="radio"
+					description="PLG_SYSTEM_LESS_FIELD_COMMENTS_DESC"
+					label="PLG_SYSTEM_LESS_FIELD_COMMENTS_LABEL"
+					default="0"
+				>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="less_compress" type="radio"
+					description="PLG_SYSTEM_LESS_FIELD_COMPRESSION_DESC"
+					label="PLG_SYSTEM_LESS_FIELD_COMPRESSION_LABEL"
+					default="0"
+				>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				
+			<!-- Added >>> -->
+				<field type="spacer" name="clientsidespacer" class="text"
+					label="&lt;h3&gt; Client-side Compiler Options &lt;/h3&gt;with &lt;a href='https://addons.mozilla.org/en-US/firefox/addon/fireless/' target='_blank'&gt;FireLESS&lt;/a&gt; add-on for Firefox or Chrome dev tools"
+				/>
+				<field name="clientside_enable" type="radio"
+					description="enable for development, disable for production (modern browsers only)"
+					label="Use client-side compiler"
+					default="0"
+				>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+			<!-- <<< Added -->
+			</fieldset>
+		</fields>
+	</config>
+	<updateservers>
+		<server
+			type="extension"
+			priority="1"
+			name="at[tec] Update Server">http://www.attec.at/joomla-updates/plg_system_less_update.xml</server>
+	</updateservers>
 </extension>
