@@ -17,18 +17,18 @@ See CHANGELOG.md
 + option to compress .css output
 + option to preserve comments
 + less and css path configurable
-+ compatible with J! 2.5 + 3.0
++ compatible with J! 2.5 + 3.x
 + Option to parse only frontent, backend or both
 + Paths for frontend and backend template configurable
 + fr-FR translation contributed by lomart.fr
 + ru-RU translation contributed by Pazys
 
 ## Installation
-a) Download latest zipball and install via Joomla! Extension Manager
-https://github.com/ndeet/plg_system_less/zipball/master
-
-b) Download latest package from Tags
+a) Download latest release from Tags and install via Joomla! Extension Manager
 https://github.com/ndeet/plg_system_less/tags
+
+b) Download latest zipball (development state) and install via Joomla! Extension Manager
+https://github.com/ndeet/plg_system_less/zipball/master
 
 ## Feedback and Issues
 https://github.com/ndeet/plg_system_less/issues

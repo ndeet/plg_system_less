@@ -1,8 +1,6 @@
-## Version 0.7.2 Beta
-+ check if cached less file has correct path, fixes #9
-
 ## Version 0.7.1 Beta
 + check if lessc already included to avoid conflict with other plugins
++ check if cached less file has correct path, fixes #9
 
 ## Version 0.7.0 Beta
 + update lessphp to version 0.3.9, thanks to Klipper
