@@ -1,6 +1,8 @@
 ## Version 0.7.1 Beta
++ new feature: client-side compiler for easier .less debugging, thanks to @piotr-cz (http://piotr.cz)
 + check if lessc already included to avoid conflict with other plugins
 + check if cached less file has correct path, fixes #9
+
 
 ## Version 0.7.0 Beta
 + update lessphp to version 0.3.9, thanks to Klipper
