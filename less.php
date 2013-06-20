@@ -75,8 +75,8 @@ class plgSystemLess extends JPlugin
 				try
 				{
 					$this->autoCompileLess($lessFile, $cssFile);
-				} 
-				catch(Exception $e) 
+				}
+				catch (Exception $e)
 				{
 					echo "lessphp error: " . $e->getMessage();
 				}
@@ -164,7 +164,7 @@ class plgSystemLess extends JPlugin
 
 	/**
 	 * Configure and add Client-side Less library
-	 *
+	 * @author piotr-cz
 	 * @return  void
 	 *
 	 * @see     LESS: Ussage  http://lesscss.org/#usage
@@ -172,8 +172,8 @@ class plgSystemLess extends JPlugin
 	function clientsideLess()
 	{
 		// Initialise variables
-		$app			= JFactory::getApplication();
-		$doc 			= JFactory::getDocument();
+		$app = JFactory::getApplication();
+		$doc = JFactory::getDocument();
 
 
 		// Early exit
@@ -183,25 +183,25 @@ class plgSystemLess extends JPlugin
 		}
 
 		// Get asset paths
-		$templateRel	= 'templates/' . $doc->template . '/';
-		$templateUri	= JUri::base() . $templateRel;
+		$templateRel = 'templates/' . $doc->template . '/';
+		$templateUri = JUri::base() . $templateRel;
 
 
 		// Determine which param to use (admin/ site)
-		$mode			= $this->params->get('mode', 0);
-		$lessKey		= 'lessfile';
-		$cssKey			= 'cssfile';
+		$mode = $this->params->get('mode', 0);
+		$lessKey = 'lessfile';
+		$cssKey = 'cssfile';
 
 		if ($app->isAdmin() && ($mode == 1 || $mode == 2))
 		{
-			$lessKey	= 'admin_' . $lessKey;
-			$cssKey		= 'admin_' . $cssKey;
+			$lessKey = 'admin_' . $lessKey;
+			$cssKey = 'admin_' . $cssKey;
 		}
 
 
 		// Get template css filenames
-		$lessUri		= $templateRel . $this->params->get($lessKey, 'less/template.less');
-		$cssUri			= $templateRel . $this->params->get($cssKey, 'css/template.css');
+		$lessUri = $templateRel . $this->params->get($lessKey, 'less/template.less');
+		$cssUri = $templateRel . $this->params->get($cssKey, 'css/template.css');
 
 
 		// Add less file to document
@@ -216,24 +216,23 @@ class plgSystemLess extends JPlugin
 		 *  rootpath		: $templateUrl
 		 */
 		$options = array(
-			'env'				=> 'development',
-			'dumpLineNumbers'	=> 'mediaquery', // default: 'comments'
+			'env' => 'development',
+			'dumpLineNumbers' => 'mediaquery', // default: 'comments'
 		);
 
 		$doc->addScriptDeclaration('
-
-  // Less options
-  var less = ' . json_encode($options, JSON_FORCE_OBJECT | (defined('JSON_PRETTY_PRINT') ? JSON_PRETTY_PRINT : false)) . ';
-');
+				// Less options
+				var less = ' . json_encode($options, JSON_FORCE_OBJECT | (defined('JSON_PRETTY_PRINT') ? JSON_PRETTY_PRINT : false)) . ';
+		');
 
 
 		// Load less.js (pick latest version in media folder)
 		// Joomla adds JS code after libraries in head. We need it other way around
-		$mediaJsDestination	= '/media/plg_less/js/';
-		$mediaPath 			= JPATH_SITE . $mediaJsDestination;
-		$mediaUri			= JUri::root(true) . $mediaJsDestination;
+		$mediaJsDestination = '/media/plg_less/js/';
+		$mediaPath = JPATH_SITE . $mediaJsDestination;
+		$mediaUri = JUri::root(true) . $mediaJsDestination;
 
-		$lessVersions 		= glob($mediaPath . 'less-*.js');
+		$lessVersions = glob($mediaPath . 'less-*.js');
 
 		if (!empty($lessVersions))
 		{
@@ -243,12 +242,12 @@ class plgSystemLess extends JPlugin
 			$doc->addCustomTag('<script src="' . $mediaUri . basename($lessVersions[0]) . '" type="text/javascript"></script>');
 
 			// Load after options (experimental, problem with XHTML)
-		/*
-			$doc->addScriptDeclaration('
-  // Less library
-  document.write( unescape( \'%3Cscript src="' . $mediaUri . basename($lessVersions[0]) . '" type="text/javascript"%3E%3C/script%3E\' ) );
-');
-		*/
+			/*
+				$doc->addScriptDeclaration('
+						// Less library
+						document.write( unescape( \'%3Cscript src="' . $mediaUri . basename($lessVersions[0]) . '" type="text/javascript"%3E%3C/script%3E\' ) );
+				');
+			*/
 		}
 
 
@@ -285,6 +284,7 @@ class plgSystemLess extends JPlugin
 
 	/**
 	 * Remove template.css from document html
+	 * @author piotr-cz
 	 *
 	 * @return  void
 	 */
@@ -294,10 +294,10 @@ class plgSystemLess extends JPlugin
 		// TODO: no path, open for bugs when more files of same name are present (ie. /css/system/template.css)
 		return;
 
-		$cssUri		= $this->params->get('cssfile');
-		$body 		= JResponse::getBody();
+		$cssUri = $this->params->get('cssfile');
+		$body = JResponse::getBody();
 
-		$replaced 	= preg_replace('~(\r?\n.*<link .*/' . $cssUri . '".* />)~', '', $body);
+		$replaced = preg_replace('~(\r?\n.*<link .*/' . $cssUri . '".* />)~', '', $body);
 
 		if ($replaced)
 		{

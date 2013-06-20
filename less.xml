@@ -18,12 +18,10 @@
 		<filename>lessc.php</filename>
     	<filename>index.html</filename>
 	</files>
-<!-- Added >>> -->
 	<media destination="plg_less" folder="media">
 		<folder>js</folder>
 		<filename>index.html</filename>
 	</media>
-<!-- <<< Added -->
 	<languages>
 		<language tag="en-GB">language/en-GB/en-GB.plg_system_less.ini</language>
 		<language tag="en-GB">language/en-GB/en-GB.plg_system_less.sys.ini</language>
@@ -105,20 +103,18 @@
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
-				
-			<!-- Added >>> -->
+
 				<field type="spacer" name="clientsidespacer" class="text"
-					label="&lt;h3&gt; Client-side Compiler Options &lt;/h3&gt;with &lt;a href='https://addons.mozilla.org/en-US/firefox/addon/fireless/' target='_blank'&gt;FireLESS&lt;/a&gt; add-on for Firefox or Chrome dev tools"
+					label="PLG_SYSTEM_LESS_CLIENTSIDESPACER"
 				/>
 				<field name="clientside_enable" type="radio"
-					description="enable for development, disable for production (modern browsers only)"
-					label="Use client-side compiler"
+					description="PLG_SYSTEM_LESS_FIELD_CLIENTSIDE_ENABLE_DESC"
+					label="PLG_SYSTEM_LESS_FIELD_CLIENTSIDE_ENABLE_LABEL"
 					default="0"
 				>
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
-			<!-- <<< Added -->
 			</fieldset>
 		</fields>
 	</config>
