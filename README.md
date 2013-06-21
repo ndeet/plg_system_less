@@ -8,7 +8,7 @@ A Joomla! System Plugin, compiles templates .less files on page load only if the
 Joomla! 2.5.x + 3.0.x + 3.1.x
 
 ### Changelog
-See CHANGELOG.md
+See [CHANGELOG.md](CHANGELOG.md)
 
 ## Features Overview
 + compiles template.less file and all imported files to template.css
