@@ -1,6 +1,8 @@
 # System - Less Compiler
 A Joomla! System Plugin, compiles templates .less files on page load only if they changed. Implemented with [lessphp]
 
+Client side compiler by @piotr-cz for easy debugging. It maps the .css file back to .less files. This means you can see where classes have been defined. Speeds up template development.
+See instructions(https://github.com/ndeet/plg_system_less/wiki/Clientside-Compiler-instructions)
 
 [lessphp]: https://github.com/leafo/lessphp
 
@@ -19,7 +21,7 @@ See [CHANGELOG.md](CHANGELOG.md)
 + less and css path configurable
 + client-side compiler for easier .less debugging, thanks to @piotr-cz
 + compatible with J! 2.5 + 3.x
-+ Option to parse only frontent, backend or both
++ Option to parse only frontend, backend or both
 + Paths for frontend and backend template configurable
 + fr-FR translation contributed by lomart.fr
 + ru-RU translation contributed by Pazys
@@ -35,6 +37,7 @@ https://github.com/ndeet/plg_system_less/zipball/master
 https://github.com/ndeet/plg_system_less/issues
 
 ## Help and Contribute
-a) Either by pull requests
-b) for small fixes/translations you can use github's built in-editor
+a) By pull requests
+
+b) For small fixes/translations you can also use Github's built-in editor
 http://docs.joomla.org/Github_using_the_web
