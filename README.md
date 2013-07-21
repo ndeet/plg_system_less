@@ -2,7 +2,7 @@
 A Joomla! System Plugin, compiles templates .less files on page load only if they changed. Implemented with [lessphp]
 
 Client side compiler by @piotr-cz for easy debugging. It maps the .css file back to .less files. This means you can see where classes have been defined. Speeds up template development.
-See instructions(https://github.com/ndeet/plg_system_less/wiki/Clientside-Compiler-instructions)
+See [clientside compiler instructions](https://github.com/ndeet/plg_system_less/wiki/Clientside-Compiler-instructions)
 
 [lessphp]: https://github.com/leafo/lessphp
 
