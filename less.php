@@ -164,10 +164,10 @@ class plgSystemLess extends JPlugin
 
 	/**
 	 * Configure and add Client-side Less library
-	 * @author piotr-cz
-	 * @return  void
+	 * @author   piotr-cz
+	 * @return   void
 	 *
-	 * @see     LESS: Ussage  http://lesscss.org/#usage
+	 * @see      LESS: Ussage  http://lesscss.org/#usage
 	 */
 	function clientsideLess()
 	{
@@ -241,7 +241,7 @@ class plgSystemLess extends JPlugin
 			// Load at the end of head
 			$doc->addCustomTag('<script src="' . $mediaUri . basename($lessVersions[0]) . '" type="text/javascript"></script>');
 
-			// Load after options (experimental, problem with XHTML)
+			// Load after options (experimental, cannot use in XHTML documents)
 			/*
 				$doc->addScriptDeclaration('
 						// Less library
@@ -249,34 +249,43 @@ class plgSystemLess extends JPlugin
 				');
 			*/
 		}
+		// Cannot find client-side parser
+		else
+		{
+			return;
+		}
 
 
 		/*
 		 * Remove template.css from document head
 		 *
-		 * Note:  css file must be added either using `JFactory::getDocument->addStylesheet($cssFile)` or `JHtml::_('stylesheet', $cssFile)`
+		 * Note:  Css file must be added either using `JFactory::getDocument->addStylesheet($cssFile)` or `JHtml::_('stylesheet', $cssFile)`
 		 * Note:  Cannot rely on removing stylesheet using JDocumentHTML methods.
-		 * Note:  template.css may be added to $doc['stylesheets'] using following keys:
+		 * Note:  Passes ignore cache trick (template.css?1234567890123)
+		 * Note:  Template.css may be added to $doc['stylesheets'] using following keys:
 		 *	- relative						: `templates/...`
 		 *	- semi		JUri::base(true)	: `/[path-to-root]/templates/...`
 		 * 	- absolute 	JUri::base()		: `http://[host]/[path-to-root]/templates/...`
 		 *	- or outside $doc->_styleSheets
 		 */
-		$keys = array($cssUri, JUri::base() . $cssUri, JUri::base(false) . $cssUri);
+		$lookups = array($cssUri, JUri::base(true) . '/' . $cssUri, JUri::base() . $cssUri);
 
-		foreach ($keys as $key)
+		// Loop trough all registered document stylesheets...
+		foreach ($doc->_styleSheets as $stylesSheetUri => $styleSheetInfo)
 		{
-			// Note: doesn't find non-cached links (ie. template.css?123);
-			if (!isset($doc->_styleSheets[$key]))
+			// ...and compare to every lookup...
+			foreach ($lookups as $lookup)
 			{
-				continue;
+				// ...that starts like a lookup
+				if (strpos($stylesSheetUri, $lookup) === 0)
+				{
+					unset($doc->_styleSheets[$stylesSheetUri]);
+					return;
+				}
 			}
-
-			unset($doc->_styleSheets[$key]);
-			return;
 		}
 
-		// Didn't find css file, register event to remove from template html body.
+		// Didn't find a css file in JDocument instance, register event to remove in from rendered html body.
 		$app->registerEvent('onAfterRender', array($this, 'removeCss'));
 
 		return;
@@ -284,22 +293,25 @@ class plgSystemLess extends JPlugin
 
 	/**
 	 * Remove template.css from document html
-	 * @author piotr-cz
+	 * Stylesheet href may include query string, ie template.css?1234567890123
+	 * @author   piotr-cz
 	 *
-	 * @return  void
+	 * @return   void
 	 */
 	public function removeCss()
 	{
-		// TODO: doesn't work for admin yet
-		// TODO: no path, open for bugs when more files of same name are present (ie. /css/system/template.css)
-		return;
-
-		$cssUri = $this->params->get('cssfile');
+		// Initialise variables
+		$doc = JFactory::getDocument();
 		$body = JResponse::getBody();
 
-		$replaced = preg_replace('~(\r?\n.*<link .*/' . $cssUri . '".* />)~', '', $body);
+		// Get Uri to template stylesheet file
+		$templateUri = JUri::base(true) . '/templates/' . $doc->template . '/';
+		$cssUri = $templateUri . $this->params->get('cssfile', 'css/template.css');
 
-		if ($replaced)
+		// Replace line with link element and path to stylesheet file
+		$replaced = preg_replace( '~(\s*?<link.* href=".*?' . preg_quote($cssUri) . '(?:\?.*)?".*/>)~', '', $body, -1, $count);
+
+		if ($count)
 		{
 			JResponse::setBody($replaced);
 		}
