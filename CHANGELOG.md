@@ -1,4 +1,4 @@
-## Version 0.7.2 Beta
+## Version 0.7.2 Beta (2013-07-21)
 + improved removeCss mechanism by @piotr-cz PR #11
 
 ## Version 0.7.1 Beta
