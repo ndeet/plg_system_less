@@ -109,7 +109,7 @@ class plgSystemLess extends JPlugin
 		if (file_exists($cacheFile))
 		{
 			$tmpCache = unserialize(file_get_contents($cacheFile));
-			if ($tmpCache['root'] === $cacheFile)
+			if ($tmpCache['root'] === $inputFile)
 			{
 				$cache = $tmpCache;
 			}
