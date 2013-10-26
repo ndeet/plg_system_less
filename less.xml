@@ -11,7 +11,7 @@
 	<license>GNU General Public License v3; see	LICENSE.txt</license>
 	<authorEmail>info@attec.at</authorEmail>
 	<authorUrl>www.attec.at</authorUrl>
-	<version>0.7.2</version>
+	<version>0.7.3</version>
 	<description>PLG_SYSTEM_LESS_XML_DESC</description>
 	<files>
 		<file plugin="less">less.php</file>

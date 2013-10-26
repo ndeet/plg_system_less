@@ -1,3 +1,8 @@
+## Version 0.7.3 Beta (2013-10-26)
++ fixed bug causing compilation even if cached version is available by @stiplady PR #18
++ updated language fr-FR translation by @lomart, PR #17
++ language file fix by @Bit32, PR #14
+
 ## Version 0.7.2 Beta (2013-07-21)
 + improved removeCss mechanism by @piotr-cz PR #11
 
