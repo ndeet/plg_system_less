@@ -15,7 +15,7 @@
 	<description>PLG_SYSTEM_LESS_XML_DESC</description>
 	<files>
 		<file plugin="less">less.php</file>
-		<filename>lessc.php</filename>
+		<folder>lessc</folder>
     	<filename>index.html</filename>
 	</files>
 	<media destination="plg_less" folder="media">
@@ -48,6 +48,14 @@
 				<field name="sitespacer" type="spacer" class="text"
 					label="PLG_SYSTEM_LESS_SITESPACER"
 				/>
+				<field name="sitelessc" type="filelist" 
+					default="lessc-0.3.9" 
+					label="PLG_SYSTEM_LESS_FIELD_SITELESSC_LABEL"
+					description="PLG_SYSTEM_LESS_FIELD_SITELESSC_DESC"
+					directory="plugins/system/less/lessc" 
+					filter="\.php" 
+					exclude="" 
+					stripext="1" />
 				<field name="lessfile" type="text"
 					description="PLG_SYSTEM_LESS_FIELD_LESSFILE_DESC"
 					label="PLG_SYSTEM_LESS_FIELD_LESSFILE_LABEL"
@@ -63,6 +71,15 @@
 				<field type="spacer" name="adminspacer" class="text"
 					label="PLG_SYSTEM_LESS_ADMINSPACER"
 				/>
+				<field name="adminlessc" 
+					type="filelist" 
+					default="lessc-0.3.9" 
+					label="PLG_SYSTEM_LESS_FIELD_ADMINLESSC_LABEL"
+					description="PLG_SYSTEM_LESS_FIELD_ADMINLESSC_DESC"
+					directory="plugins/system/less/lessc" 
+					filter="\.php" 
+					exclude="" 
+					stripext="1" />
 				<field name="admin_lessfile" type="text"
 					description="PLG_SYSTEM_LESS_FIELD_ADMINLESSFILE_DESC"
 					label="PLG_SYSTEM_LESS_FIELD_ADMINLESSFILE_LABEL"

@@ -10,10 +10,7 @@
 // no direct access
 defined('_JEXEC') or die();
 
-if (!class_exists('lessc'))
-{
-	require_once('lessc.php');
-}
+
 
 /**
  * Plugin checks and compiles updated .less files on page load. No need to manually compile your .less files again.
@@ -27,6 +24,19 @@ class plgSystemLess extends JPlugin
 	function onBeforeRender()
 	{
 		$app = JFactory::getApplication();
+
+		if ($app->isSite()) {
+			if (!class_exists('lessc')) {
+				$siteVersion = $this->params->get('sitelessc') == '-1' ? 'lessc-0.3.9' : $this->params->get('sitelessc');
+				require_once('lessc/'.$siteVersion.'.php');
+			}
+		}
+		if ($app->isAdmin()) {
+			if (!class_exists('lessc')) {
+				$adminVersion = $this->params->get('adminlessc') == '-1' ? 'lessc-0.3.9' : $this->params->get('adminlessc');
+				require_once('lessc/'.$adminVersion.'.php');
+			}
+		}
 
 		//path to less file
 		$lessFile = '';
