@@ -7,13 +7,15 @@ See [clientside compiler instructions](https://github.com/ndeet/plg_system_less/
 [lessphp]: https://github.com/leafo/lessphp
 
 ## Compatibility
-Joomla! 2.5.x + 3.0.x + 3.1.x
+Joomla! 2.5.x up to 3.3.x
+Twitter Bootstrap 2.x + 3.x
 
 ### Changelog
 See [CHANGELOG.md](CHANGELOG.md)
 
 ## Features Overview
 + compiles template.less file and all imported files to template.css
++ supports Twitter Bootstrap 2.x and 3.x (thanks to @robwent)
 + uses caching to track changes and better performance
 + option to force compilation on each reload
 + option to compress .css output
@@ -41,3 +43,6 @@ a) By pull requests
 
 b) For small fixes/translations you can also use Github's built-in editor
 http://docs.joomla.org/Github_using_the_web
+
+## Joomla Extensions Directory
+http://extensions.joomla.org/extensions/miscellaneous/development/22424

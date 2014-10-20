@@ -1,3 +1,6 @@
+## Version 0.7.4 Beta (2014-10-20)
++ Support for Bootstrap 3 (switch between lessphp 0.3.8 and 0.4.0) Thanks to @robwent PR #20
+
 ## Version 0.7.3 Beta (2013-10-26)
 + fixed bug causing compilation even if cached version is available by @stiplady PR #18
 + updated language fr-FR translation by @lomart, PR #17
