@@ -27,14 +27,14 @@ class plgSystemLess extends JPlugin
 
 		if ($app->isSite()) {
 			if (!class_exists('lessc')) {
-				$siteVersion = $this->params->get('sitelessc') == '-1' ? 'lessc-0.3.9' : $this->params->get('sitelessc');
+                $siteVersion = $this->params->get('sitelessc', 'lessc-0.3.9');
 				require_once('lessc/'.$siteVersion.'.php');
 			}
 		}
 		if ($app->isAdmin()) {
 			if (!class_exists('lessc')) {
-				$adminVersion = $this->params->get('adminlessc') == '-1' ? 'lessc-0.3.9' : $this->params->get('adminlessc');
-				require_once('lessc/'.$adminVersion.'.php');
+                $adminVersion = $this->params->get('adminlessc', 'lessc-0.3.9');
+                require_once('lessc/'.$adminVersion.'.php');
 			}
 		}
 
