@@ -1,9 +1,9 @@
 <?php
 /**
  * @package   System Plugin - automatic Less compiler - for Joomla 2.5 and 3.x
- * @version   0.7.3 Beta
+ * @version   0.7.5 Beta
  * @author    Andreas Tasch
- * @copyright (C) 2012-2013 - Andreas Tasch
+ * @copyright (C) 2012-2014 - Andreas Tasch and contributors
  * @license   GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  **/
 

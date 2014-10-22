@@ -1,3 +1,6 @@
+## Version 0.7.5 Stable (2014-10-23)
++ Hide -Select None- option in filelist field. Fixes Issue #24
+
 ## Version 0.7.4 Beta (2014-10-20)
 + Support for Bootstrap 3 (switch between lessphp 0.3.8 and 0.4.0) Thanks to @robwent PR #20
 
