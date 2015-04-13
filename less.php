@@ -19,25 +19,56 @@ defined('_JEXEC') or die();
 class plgSystemLess extends JPlugin
 {
 	/**
+	 * @var $app
+	 */
+	protected $app;
+	
+	/**
+	 * override constructor to load classes as soon as possible
+	 * @param $subject
+	 * @param $config
+	 */
+	public function __construct(&$subject, $config)
+	{
+		// trigger parent constructor first so params get set
+		parent::__construct($subject, $config);
+		// set app
+		$this->app = JFactory::getApplication();
+		// check if lessc already exists but bypass autoloader
+		if (class_exists('lessc', false))
+		{
+			// the lessc class already exists, so we cannot load our own version
+			JDEBUG ? $this->app->enqueueMessage('[DEBUG] class "lessc" already exists, using version ' . lessc::$VERSION) : null;
+		}
+		// load the appropriate class
+		else
+		{
+			// determine the name of the file to load based on application
+			$name = false;
+			if ($this->app->isSite())
+			{
+				$name = $this->params->get('sitelessc', 'lessc-0.3.9');
+			}
+			else if ($this->app->isAdmin())
+			{
+				$name = $this->params->get('adminlessc', 'lessc-0.3.9');
+			}
+			$name && JDEBUG ? $this->app->enqueueMessage("[DEBUG] loading $name") : null;
+			// confirm that the named file exists
+			if ($name && file_exists($file = dirname(__FILE__) . '/lessc/' . $name . '.php'))
+			{
+				require_once $file;
+			}
+		}
+		// trigger autoload in case the file wasn't found while checking for debug
+		class_exists('lessc') && JDEBUG ? $this->app->enqueueMessage("[DEBUG] lessc " . lessc::$VERSION) : null;
+	}
+
+	/**
 	 * Compile .less files on change
 	 */
 	function onBeforeRender()
 	{
-		$app = JFactory::getApplication();
-
-		if ($app->isSite()) {
-			if (!class_exists('lessc')) {
-                $siteVersion = $this->params->get('sitelessc', 'lessc-0.3.9');
-				require_once('lessc/'.$siteVersion.'.php');
-			}
-		}
-		if ($app->isAdmin()) {
-			if (!class_exists('lessc')) {
-                $adminVersion = $this->params->get('adminlessc', 'lessc-0.3.9');
-                require_once('lessc/'.$adminVersion.'.php');
-			}
-		}
-
 		//path to less file
 		$lessFile = '';
 
@@ -47,9 +78,9 @@ class plgSystemLess extends JPlugin
 		$mode = $this->params->get('mode', 0);
 
 		//only execute frontend
-		if ($app->isSite() && ($mode == 0 || $mode == 2))
+		if ($this->app->isSite() && ($mode == 0 || $mode == 2))
 		{
-			$templatePath = JPATH_BASE . DIRECTORY_SEPARATOR . 'templates/' . $app->getTemplate() . DIRECTORY_SEPARATOR;
+			$templatePath = JPATH_BASE . DIRECTORY_SEPARATOR . 'templates/' . $this->app->getTemplate() . DIRECTORY_SEPARATOR;
 
 			//entrypoint for main .less file, default is less/template.less
 			$lessFile = $templatePath . $this->params->get('lessfile', 'less/template.less');
@@ -60,9 +91,9 @@ class plgSystemLess extends JPlugin
 		}
 
 		//execute backend
-		if ($app->isAdmin() && ($mode == 1 || $mode == 2))
+		if ($this->app->isAdmin() && ($mode == 1 || $mode == 2))
 		{
-			$templatePath = JPATH_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'templates/' . $app->getTemplate() . DIRECTORY_SEPARATOR;
+			$templatePath = JPATH_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'templates/' . $this->app->getTemplate() . DIRECTORY_SEPARATOR;
 
 			//entrypoint for main .less file, default is less/template.less
 			$lessFile = $templatePath . $this->params->get('admin_lessfile', 'less/template.less');
@@ -110,11 +141,9 @@ class plgSystemLess extends JPlugin
 		$config = JFactory::getConfig();
 		//path to temp folder
 		$tmpPath = $config->get('tmp_path');
-		//get Application
-		$app = JFactory::getApplication();
 
 		//load chached file
-		$cacheFile = $tmpPath . DIRECTORY_SEPARATOR . $app->getTemplate() . "_" . basename($inputFile) . ".cache";
+		$cacheFile = $tmpPath . DIRECTORY_SEPARATOR . $this->app->getTemplate() . "_" . basename($inputFile) . ".cache";
 
 		if (file_exists($cacheFile))
 		{
@@ -182,7 +211,6 @@ class plgSystemLess extends JPlugin
 	function clientsideLess()
 	{
 		// Initialise variables
-		$app = JFactory::getApplication();
 		$doc = JFactory::getDocument();
 
 
@@ -202,7 +230,7 @@ class plgSystemLess extends JPlugin
 		$lessKey = 'lessfile';
 		$cssKey = 'cssfile';
 
-		if ($app->isAdmin() && ($mode == 1 || $mode == 2))
+		if ($this->app->isAdmin() && ($mode == 1 || $mode == 2))
 		{
 			$lessKey = 'admin_' . $lessKey;
 			$cssKey = 'admin_' . $cssKey;
@@ -296,7 +324,7 @@ class plgSystemLess extends JPlugin
 		}
 
 		// Didn't find a css file in JDocument instance, register event to remove in from rendered html body.
-		$app->registerEvent('onAfterRender', array($this, 'removeCss'));
+		$this->app->registerEvent('onAfterRender', array($this, 'removeCss'));
 
 		return;
 	}
