@@ -8,8 +8,8 @@ A Joomla! System Plugin, compiles templates .less files on page load only if the
 Joomla! 2.5.x up to 3.4.x
 Twitter Bootstrap 2.x + 3.2 + 3.3
 - for Bootstrap 2.3 (shipped with Joomla! Core) use lessc-0.3.9 compiler
-- for Bootstrap 3.3+ please use the lessphp-1.7.x.x compiler
 - for Bootstrap 3.2 please use either lessc-0.4.0 or the new lessphp-1.7.x.x compiler
+- for Bootstrap 3.3+ please use the lessphp-1.7.x.x compiler
 
 ### Changelog
 See [CHANGELOG.md](CHANGELOG.md)
