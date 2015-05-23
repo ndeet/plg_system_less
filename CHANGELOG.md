@@ -1,3 +1,7 @@
+## Version 0.8.0 Stable (2014-05-23)
++ Refactor of class loading and fix autoload by @jeffchannell
++ Adding less.php v1.7.0.3 for latest Bootstrap (3.3+) support, supports also older Bootsrap versions
+
 ## Version 0.7.5 Stable (2014-10-23)
 + Hide -Select None- option in filelist field. Fixes Issue #24
 

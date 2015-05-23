@@ -6,12 +6,12 @@
 	method="upgrade">
 	<name>plg_system_less</name>
 	<author>Andreas Tasch</author>
-	<creationDate>October 2014</creationDate>
-	<copyright>(C) 2012-2014 Andreas Tasch</copyright>
+	<creationDate>May 2015</creationDate>
+	<copyright>(C) 2012-2015 Andreas Tasch</copyright>
 	<license>GNU General Public License v3; see	LICENSE.txt</license>
 	<authorEmail>info@attec.at</authorEmail>
 	<authorUrl>www.attec.at</authorUrl>
-	<version>0.7.5</version>
+	<version>0.8.0</version>
 	<description>PLG_SYSTEM_LESS_XML_DESC</description>
 	<files>
 		<file plugin="less">less.php</file>
