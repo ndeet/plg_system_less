@@ -100,7 +100,7 @@
 				<field type="spacer" name="lessspacer" class="text"
 					label="PLG_SYSTEM_LESS_LESSSPACER"
 				/>
-				<field name="less_force" type="radio"
+				<field name="less_force" type="radio" class="btn-group btn-group-yesno"
 					description="PLG_SYSTEM_LESS_FIELD_FORCE_DESC"
 					label="PLG_SYSTEM_LESS_FIELD_FORCE_LABEL"
 					default="0"
@@ -108,7 +108,7 @@
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
-				<field name="less_comments" type="radio"
+				<field name="less_comments" type="radio" class="btn-group btn-group-yesno"
 					description="PLG_SYSTEM_LESS_FIELD_COMMENTS_DESC"
 					label="PLG_SYSTEM_LESS_FIELD_COMMENTS_LABEL"
 					default="0"
@@ -116,7 +116,7 @@
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
-				<field name="less_compress" type="radio"
+				<field name="less_compress" type="radio" class="btn-group btn-group-yesno"
 					description="PLG_SYSTEM_LESS_FIELD_COMPRESSION_DESC"
 					label="PLG_SYSTEM_LESS_FIELD_COMPRESSION_LABEL"
 					default="0"
@@ -128,7 +128,7 @@
 				<field type="spacer" name="clientsidespacer" class="text"
 					label="PLG_SYSTEM_LESS_CLIENTSIDESPACER"
 				/>
-				<field name="clientside_enable" type="radio"
+				<field name="clientside_enable" type="radio" class="btn-group btn-group-yesno"
 					description="PLG_SYSTEM_LESS_FIELD_CLIENTSIDE_ENABLE_DESC"
 					label="PLG_SYSTEM_LESS_FIELD_CLIENTSIDE_ENABLE_LABEL"
 					default="0"
