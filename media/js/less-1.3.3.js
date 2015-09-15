@@ -3865,9 +3865,23 @@ tree.debugInfo.asComment = function(ctx) {
 };
 
 tree.debugInfo.asMediaQuery = function(ctx) {
-    return '@media -sass-debug-info{filename{font-family:' +
+		function removeslashes(css) {
+			css = css.replace(/(@media -sass-debug-info\{)(.*)(\}\n)/g,function(m1,m2,m3,m4){
+				m3 = m3.replace('file\\:\\/\\/file\\:\\/\\/','file\\:\\/\\/');
+				m3 = m3.replace('file\\:\\/\\/http\\:\\/\\/','http\\:\\/\\/');
+				m3 = m3.replace('file\\:\\/\\/https\\:\\/\\/','https\\:\\/\\/');
+				m3 = m3.replace(/(font-family:)([^}]+)(})/g, function(r1,r2,r3,r4){
+					return r2 + '"' + r3 + '";' + r4;
+					});
+				return m2 + m3 + m4;
+				});
+			return css;
+			}
+    var css = '@media -sass-debug-info{filename{font-family:' +
         ('file://' + ctx.debugInfo.fileName).replace(/[\/:.]/g, '\\$&') +
         '}line{font-family:\\00003' + ctx.debugInfo.lineNumber + '}}\n';
+
+		return removeslashes(css);
 };
 
 tree.find = function (obj, fun) {
