@@ -47,11 +47,11 @@ class plgSystemLess extends JPlugin
 			$name = false;
 			if ($this->app->isSite())
 			{
-				$name = $this->params->get('sitelessc', 'lessc-0.3.9');
+				$name = $this->params->get('sitelessc', 'lessc-0.5.0');
 			}
 			else if ($this->app->isAdmin())
 			{
-				$name = $this->params->get('adminlessc', 'lessc-0.3.9');
+				$name = $this->params->get('adminlessc', 'lessc-0.5.0');
 			}
 			$name && JDEBUG ? $this->app->enqueueMessage("[DEBUG] loading $name") : null;
 			// confirm that the named file exists
